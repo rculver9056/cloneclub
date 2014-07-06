@@ -1,0 +1,20 @@
+build
+.DS_Store
+__*
+full_soundtrack.ogg
+cloneclub
+win32/*
+win64/*
+src/maps/*.lua
+venv
+tmx2lua*
+bin/*
+dsa_priv.pem
+*.bak
+*.pyc
+Thumbs.db
+
+save
+src/test/fixtures/Fake.app
+Journey\ to\ the\ Center\ of\ Hawkthorne.app
+sparkle/appcast.json
