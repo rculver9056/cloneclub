@@ -1,6 +1,6 @@
 # Orphan Black - the Video Game
 
-This 2d RPG/platformer based on the television programme Orphan Black. It's built using the [LÖVE](https://love2d.org/) game engine.
+This 2D RPG/platformer based on the television programme Orphan Black. It's built using the [LÖVE](https://love2d.org/) game engine.
 
 ## Download the game
 
@@ -35,14 +35,14 @@ In your new PowerShell window, run
 ```powershell
 > .\make.ps1 run
 ```
- 
-### Next steps
-
-Congratulations! You're running Orphan Black the Game! 
 
 ## License
 
 Unless otherwise noted, this code is licensed under the MIT License.
 
 Artwork and audio files are licensed under [CC BY-NC 3.0](http://creativecommons.org/licenses/by-nc/3.0/). Artwork includes all .png and .ogg files.
+
+## Thanks
+
+A huge thanks to all of [Project Hawkthorne](http://projecthawkthorne.com) from whom I have borrowed large chunks of code. 
 
