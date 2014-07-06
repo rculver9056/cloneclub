@@ -25,9 +25,9 @@ function state:leave()
 end
 
 function state:update(dt)
-    self.ty = self.ty + 50 * dt
+    self.ty = self.ty + 100 * dt
     camera:setPosition(0, self.ty)
-    if self.ty > ( #self.credits * 25 ) + 500 then
+    if self.ty > ( #self.credits * 50 ) + 1000 then
         Gamestate.switch(self.previous)
     end
 end
@@ -36,7 +36,7 @@ function state:keypressed( button )
     if button == 'UP' then
         self.ty = math.max( self.ty - 100, 300 )
     elseif button == 'DOWN' then
-        self.ty = math.min( self.ty + 100, ( #self.credits * 25 ) + 30 )
+        self.ty = math.min( self.ty + 200, ( #self.credits * 50 ) + 60 )
     else
         Gamestate.switch(self.previous)
     end
@@ -50,10 +50,10 @@ state.credits = {
 
 function state:draw()
     local shift = math.floor(self.ty/25)
-    for i = shift - 14, shift + 1 do
+    for i = shift - 28, shift + 2 do
         local name = self.credits[i]
         if name then
-            love.graphics.printf(name, 0, window.height + 25 * i, window.width, 'center')
+            love.graphics.printf(name, 0, window.height + 50 * i, window.width, 'center')
         end
     end
 end

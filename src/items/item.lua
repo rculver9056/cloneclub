@@ -38,6 +38,7 @@ function Item.new(node, count)
     end
 
     item.image = love.graphics.newImage(imagePath)
+		--change following 2 lines to change where I get inventory image from.
     local itemImageY = item.image:getHeight() - 15
     item.image_q = love.graphics.newQuad( 0,itemImageY, 15, 15, item.image:getWidth(),item.image:getHeight() )
     item.MaxItems = node.MAX_ITEMS or 1
@@ -53,9 +54,7 @@ end
 -- @return nil
 function Item:draw(position, scrollIndex, hideAmount)
     love.graphics.draw(self.image, self.image_q, position.x, position.y)
-    if not hideAmount then
-       love.graphics.print("x" .. self.quantity, position.x + 4, position.y + 10,0, 0.5, 0.5)
-    end
+
     if scrollIndex ~= nil then
         love.graphics.print("#" .. scrollIndex, position.x, position.y, 0, 0.5, 0.5) --Adds index #
     end

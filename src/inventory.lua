@@ -20,18 +20,14 @@ Inventory.__index = Inventory
 local sprite = love.graphics.newImage('images/inventory/inventory.png')
 local scrollSprite = love.graphics.newImage('images/inventory/scrollbar.png')
 local selectionSprite = love.graphics.newImage('images/inventory/selectionBadge.png')
-local selectionCraftingSprite = love.graphics.newImage('images/inventory/selectioncraftingannex.png')
-local curWeaponSelect = love.graphics.newImage('images/inventory/selectedweapon.png')
-local craftingAnnexSprite = love.graphics.newImage('images/inventory/craftingannex.png')
-craftingAnnexSprite:setFilter('nearest', 'nearest')
+
 selectionSprite:setFilter('nearest', 'nearest')
 sprite:setFilter('nearest', 'nearest')
 scrollSprite:setFilter('nearest','nearest')
 
 --The animation grids for different animations.
-local animGrid = anim8.newGrid(100, 105, sprite:getWidth(), sprite:getHeight())
-local scrollGrid = anim8.newGrid(5,40, scrollSprite:getWidth(), scrollSprite:getHeight())
-local craftingGrid = anim8.newGrid(75, 29, craftingAnnexSprite:getWidth(), craftingAnnexSprite:getHeight())
+local animGrid = anim8.newGrid(200, 210, sprite:getWidth(), sprite:getHeight())
+local scrollGrid = anim8.newGrid(10,80, scrollSprite:getWidth(), scrollSprite:getHeight())
 
 ---
 -- Creates a new inventory
@@ -42,9 +38,8 @@ function Inventory.new( player )
     
     inventory.player = player
 
-    --These variables keep track of whether the inventory is open, and whether the crafting annex is open.
+    --These variables keep track of whether the inventory is open
     inventory.visible = false
-    inventory.craftingVisible = false
 
     --These flags keep track of whether certain keys were down the last time we checked. This is necessary to only do actions once when the player presses something.
     inventory.openKeyWasDown = false
@@ -75,7 +70,7 @@ function Inventory.new( player )
 
     inventory.animState = 'closed' --The current animation state.
 
-    --These are all the different states of the crafting box and their respective animations.
+    --These are all the different states of the box and their respective animations.
     inventory.animations = {
         opening = anim8.newAnimation('once', animGrid('1-5,1'),0.05), --The box is currently opening
         open = anim8.newAnimation('once', animGrid('6,1'), 1), --The box is open.
@@ -95,17 +90,6 @@ function Inventory.new( player )
     inventory.scrollbar = 1
     inventory.pageLength = 14
 
-    --This is all pretty much identical to the corresponding lines for the main inventory, but applies to the crafting annex.
-    inventory.craftingState = 'closing'
-    inventory.craftingAnimations = {
-        opening = anim8.newAnimation('once', craftingGrid('1-6,1'),0.04),
-        open = anim8.newAnimation('once', craftingGrid('6,1'), 1),
-        closing = anim8.newAnimation('once', craftingGrid('1-6,1'),0.06)
-    }
-    inventory.craftingAnimations['closing'].direction = -1
-    inventory.craftingAnimations['closing'].position = 6
-    inventory.currentIngredients = {a = nil, b = nil} --The index of the currently selected ingredients. Equivalent to {}, but here for clarity.
-
     return inventory
 end
 
@@ -118,7 +102,6 @@ function Inventory:update( dt )
 
     --Update the animations
     self:animation():update(dt)
-    self:craftingAnimation():update(dt)
 
     self:animUpdate()
 end
@@ -143,17 +126,6 @@ function Inventory:animUpdate()
             self.animState = 'open'
         end
     end
-    if self:craftingAnimation().status == "finished" then
-        if self.craftingState == "closing" then
-            self:craftingAnimation():gotoFrame(5)
-            self:craftingAnimation():pause()
-            self.craftingVisible = false
-        elseif self.craftingState == "opening" then
-            self:craftingAnimation():gotoFrame(1)
-            self:craftingAnimation():pause()
-            self.craftingState = "open"
-        end
-    end
 end
 
 ---
@@ -162,13 +134,6 @@ end
 function Inventory:animation()
     assert(self.animations[self.animState], "State " .. self.animState .. " does not have a coorisponding animation!")
     return self.animations[self.animState]
-end
-
----
--- Gets the crafting annex's animation
--- @return the crafting annex's animation
-function Inventory:craftingAnimation()
-    return self.craftingAnimations[self.craftingState]
 end
 
 ---
@@ -182,10 +147,10 @@ function Inventory:draw( playerPosition )
     local pos = {x=playerPosition.x - (animGrid.frameWidth + 6),y=playerPosition.y - (animGrid.frameHeight - 22)}
 
     --Adjust the default position to be on the screen, and off the HUD.
-    local hud_right = camera.x + 130
-    local hud_top = camera.y + 60
+    local hud_right = camera.x + 260
+    local hud_top = camera.y + 120
     if pos.x < 0 then
-        pos.x = playerPosition.x + --[[width of player--]] 48 + 6
+        pos.x = playerPosition.x + --[[width of player--]] 96 + 12
     end
     if pos.x < hud_right and pos.y < hud_top then
         pos.y = hud_top
@@ -201,29 +166,18 @@ function Inventory:draw( playerPosition )
         fonts.set('small')
         
         love.graphics.print('Items', pos.x + 8, pos.y + 7)
-        love.graphics.print(self.currentPageName:gsub("^%l", string.upper), pos.x + 18, pos.y + 21, 0, 0.9, 0.9)
-
-        --Draw the crafting annex, if it's open
-        if self.craftingVisible then
-            self:craftingAnimation():draw(craftingAnnexSprite, pos.x + 97, pos.y + 42)
-        end
+        love.graphics.print(self.currentPageName:gsub("^%l", string.upper), pos.x + 36, pos.y + 42, 0, 0.9, 0.9)
         
         --Draw the scroll bar
-        self.scrollAnimations[self.scrollbar]:draw(scrollSprite, pos.x + 8, pos.y + 43)
+        self.scrollAnimations[self.scrollbar]:draw(scrollSprite, pos.x + 16, pos.y + 86)
 
         --Stands for first frame position, indicates the position of the first item slot (top left) on screen
-        local ffPos = {x=pos.x + 29,y=pos.y + 30} 
+        local ffPos = {x=pos.x + 58,y=pos.y + 60} 
 
-        --Draw the white border around the currently selected slot
-        if self.cursorPos.x < 2 then --If the cursor is in the main inventory section, draw this way
-            love.graphics.draw(selectionSprite, 
-                love.graphics.newQuad(0,0,selectionSprite:getWidth(),selectionSprite:getHeight(),selectionSprite:getWidth(),selectionSprite:getHeight()),
-                (ffPos.x-17) + self.cursorPos.x * 38, ffPos.y + self.cursorPos.y * 18)
-        else --Otherwise, we're in the crafting annex, so draw this way.
-            love.graphics.draw(selectionCraftingSprite,
-                love.graphics.newQuad(0,0,selectionCraftingSprite:getWidth(), selectionCraftingSprite:getHeight(), selectionCraftingSprite:getWidth(), selectionCraftingSprite:getHeight()),
-                ffPos.x + (self.cursorPos.x - 3) * 19 + 101, ffPos.y + 18)
-        end
+
+        love.graphics.draw(selectionSprite, 
+        love.graphics.newQuad(0,0,selectionSprite:getWidth(),selectionSprite:getHeight(),selectionSprite:getWidth(),selectionSprite:getHeight()), (ffPos.x-34) + self.cursorPos.x * 76, ffPos.y + self.cursorPos.y * 36)
+
 
         --Draw all the items in their respective slots
         for i=0,7 do
@@ -232,35 +186,9 @@ function Inventory:draw( playerPosition )
             if self:currentPage()[scrollIndex] then
                 local slotPos = self:slotPosition(i)
                 local item = self:currentPage()[scrollIndex]
-                if self.currentIngredients.a ~= scrollIndex and self.currentIngredients.b ~= scrollIndex then
-                    item:draw({x=slotPos.x+ffPos.x,y=slotPos.y + ffPos.y}, indexDisplay)
-                end
+                item:draw({x=slotPos.x+ffPos.x,y=slotPos.y + ffPos.y}, indexDisplay)
             end
         end
-
-
-        --If we're on the weapons screen, then draw a green border around the currently selected index, unless it's out of view.
-        if self.currentPageName == 'weapons' and self.selectedWeaponIndex <= self.pageLength then
-            local lowestVisibleIndex = (self.scrollbar - 1 )* 2 + 1
-            local weaponPosition = self.selectedWeaponIndex - lowestVisibleIndex
-            if self.selectedWeaponIndex >= lowestVisibleIndex and self.selectedWeaponIndex < lowestVisibleIndex + 8 then
-                love.graphics.draw(curWeaponSelect,
-                    love.graphics.newQuad(0,0, curWeaponSelect:getWidth(), curWeaponSelect:getHeight(), curWeaponSelect:getWidth(), curWeaponSelect:getHeight()),
-                    self:slotPosition(weaponPosition).x + ffPos.x - 2, self:slotPosition(weaponPosition).y + ffPos.y - 2)
-            end
-        end
-        if self.currentPageName == 'scrolls' and self.selectedWeaponIndex >= self.pageLength then
-            local lowestVisibleIndex = (self.scrollbar - 1 )* 2 + 1
-            local index = self.selectedWeaponIndex - self.pageLength
-            local scrollPosition = index - lowestVisibleIndex
-            if index >= lowestVisibleIndex and index < lowestVisibleIndex + 8 then
-                love.graphics.draw(curWeaponSelect,
-                    love.graphics.newQuad(0,0, curWeaponSelect:getWidth(), curWeaponSelect:getHeight(), curWeaponSelect:getWidth(), curWeaponSelect:getHeight()),
-                    self:slotPosition(scrollPosition).x + ffPos.x - 2, self:slotPosition(scrollPosition).y + ffPos.y - 2)
-            end
-        end
-
-
     end
     fonts.revert() -- Changes back to old font
 end
@@ -292,15 +220,6 @@ function Inventory:open()
     self:animation():resume()
 end
 
----
--- Opens the crafting annex
--- @return nil
-function Inventory:craftingOpen()
-    self.craftingVisible = true
-    self.craftingState = 'opening'
-    self:craftingAnimation():resume()
-end
-
 
 ---
 -- Determines whether the inventory is currently open
@@ -314,25 +233,9 @@ end
 -- @return nil
 function Inventory:close()
     self.player.controlState:standard()
-    self:craftingClose()
     self.pageNext = self.animState
     self.animState = 'closing'
     self:animation():resume()
-end
-
----
--- Begins closing the crafting annex
--- @return nil
-function Inventory:craftingClose()
-    self.craftingState = 'closing'
-    self:craftingAnimation():resume()
-    if self.currentIngredients.a then
-        self:addItem(self.currentIngredients.a, false)
-    end
-    if self.currentIngredients.b then
-        self:addItem(self.currentIngredients.b, false)
-    end
-    self.currentIngredients = {}
 end
 
 ---
@@ -340,8 +243,7 @@ end
 -- @return nil
 function Inventory:right()
     if self.cursorPos.x > 1 then self.cursorPos.y = 1 end
-    local maxX = self.craftingVisible and 4 or 1
-    if self.cursorPos.x < maxX then
+    if self.cursorPos.x < 1 then
         self.cursorPos.x = self.cursorPos.x + 1
     else
         self:switchPage(1)
@@ -367,7 +269,6 @@ end
 -- @param direction 1 or 2 for next or previous page respectively
 -- @return nil
 function Inventory:switchPage( direction )
-    self:craftingClose()
     self.scrollbar = 1
     local nextState = self.pageList[self.currentPageName][direction]
     assert(nextState, 'Inventory page switch error')
@@ -405,7 +306,7 @@ end
 -- Drops the currently selected item and adds a node at the player's position.
 -- @return nil
 function Inventory:drop()
-    if self.craftingState == 'open' or self.currentPageName == 'keys' then return end --Ignore dropping in the crafting annex and on the keys page.
+    if self.currentPageName == 'keys' then return end --Ignore dropping for keys
     local slotIndex = self:slotIndex(self.cursorPos)
     if self.pages[self.currentPageName][slotIndex] then
         local level = GS.currentState()
@@ -420,10 +321,10 @@ function Inventory:drop()
 
         local NodeClass = require('/nodes/' .. type)
         
-        local height = item.image:getHeight() - 15
+        --local height = item.image:getHeight() - 15
 
         itemProps.width = itemProps.width or item.image:getWidth()
-        itemProps.height = itemProps.height or height
+        itemProps.height = itemProps.height or 24
 
         itemProps.x = self.player.position.x + 10
         itemProps.y = self.player.position.y + 24 + (24 - itemProps.height)
@@ -610,7 +511,7 @@ function Inventory:select()
     if self.currentPageName == 'weapons' then self:selectCurrentWeaponSlot() end
     if self.currentPageName == 'scrolls' then self:selectCurrentScrollSlot() end
     if self.currentPageName == 'consumables' then self:consumeCurrentSlot() end
-    if self.currentPageName == 'materials' then self:craftCurrentSlot() end
+    if self.currentPageName == 'materials' then return end
 end
 
 ---
@@ -645,26 +546,6 @@ function Inventory:consumeCurrentSlot()
         sound.playSfx('confirm')
     end
 end
-
--- DEEPCOPY
--- This copies a table, used in crafting. I built this from bits and pieces from all over the web.
-function deepCopy(tableToCopy)
-    -- Create new object
-    local newTable = {}
-    -- Go though all the elements and copy them
-    for key,value in pairs(tableToCopy) do
-        if type(value) == 'table' then
-            value = utils.deepcopy(value)
-        end
-        newTable[key] = value
-    end
-    -- Set the metatable
-    setmetatable(newTable,getmetatable(tableToCopy))
-    return newTable
-end
-
----
-
 
 ---
 -- Tries to select the next available weapon

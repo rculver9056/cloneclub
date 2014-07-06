@@ -31,8 +31,6 @@ end
 function state:enter(previous)
   self.splash = love.graphics.newImage("images/menu/openingmenu.png")
   self.arrow = love.graphics.newImage("images/menu/small_arrow.png")
-	--instructions
-  --self.bg = sound.playMusic("ending")
 
   self.line = " terminal:// \n\n operations://loadprogram:(true) \n\n"..
     " program:-journey-to-the-center-of-hawkthorne \n\n loading simulation ..."
@@ -67,7 +65,7 @@ function state:draw()
 -- green terminal
   fonts.set('courier')
   love.graphics.setColor( 48, 254, 31, 225 )
-  love.graphics.print(self.line_short, 50, 50, 0, 0.5, 0.5 )
+  love.graphics.print(self.line_short, 100, 100, 0, 0.5, 0.5 )
 
   -- control instructions
   love.graphics.setColor(255, 255, 255)	
@@ -78,9 +76,9 @@ function state:draw()
   local x = window.width / 2 - self.splash:getWidth()/2
   local y = 2*window.height / 3 - self.splash:getHeight()/2
   love.graphics.draw(self.splash, x, y)
-  love.graphics.draw(self.arrow, x + 12, y + 23 + 12 * (self.menu:selected() - 1))
+  love.graphics.draw(self.arrow, x + 24, y + 46 + 24 * (self.menu:selected() - 1))
   for n,option in ipairs(self.menu.options) do
-    love.graphics.print(option, x + 23, y + 12 * n - 2, 0, 0.5, 0.5)
+    love.graphics.print(option, x + 46, y + 24 * n - 4, 0, 0.5, 0.5)
   end
 end
 

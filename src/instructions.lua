@@ -42,12 +42,12 @@ function state:init()
     self.instructions = {}
 
     -- The X coordinates of the columns
-    self.left_column = 160
-    self.right_column = 300
+    self.left_column = 320
+    self.right_column = 600
     -- The Y coordinate of the top key
-    self.top = 95
+    self.top = 190
     -- Vertical spacing between keys
-    self.spacing = 17
+    self.spacing = 34
 
 end
 
@@ -85,9 +85,9 @@ function state:draw()
     local back = controls:getKey("START") .. ": BACK TO MENU"
     local howto = controls:getKey("ATTACK") .. " OR " .. controls:getKey("JUMP") .. ": REASSIGN CONTROL"
 
-    love.graphics.print(back, 25, 25)
-    love.graphics.print(howto, 25, 55)
-    love.graphics.print(self.statusText, self.left_column, 280)
+    love.graphics.print(back, 50, 50)
+    love.graphics.print(howto, 50, 110)
+    love.graphics.print(self.statusText, self.left_column, 560)
     love.graphics.setColor( 0, 0, 0, 255 )
 
     for i, button in ipairs(menu.options) do
@@ -98,7 +98,7 @@ function state:draw()
     end
     
     love.graphics.setColor( 255, 255, 255, 255 )
-    love.graphics.draw(self.arrow, 135, 87 + self.spacing * menu:selected())
+    love.graphics.draw(self.arrow, 270, 174 + self.spacing * menu:selected())
 end
 
 function state:remapKey(key)

@@ -253,10 +253,10 @@ function state:draw()
 
     love.graphics.setColor(255, 255, 255)
     local back = controls:getKey("START") .. ": BACK TO MENU"
-    love.graphics.print(back, 25, 25)
+    love.graphics.print(back, 50, 50)
 
 
-    local y = 96
+    local y = 192
 
     love.graphics.draw(self.background, 
       camera:getWidth() / 2 - self.background:getWidth() / 2,
@@ -264,33 +264,33 @@ function state:draw()
 
     love.graphics.setColor( 0, 0, 0, 255 )
 
-    local xoffset = self.page == 'optionspage' and 20 or 0
+    local xoffset = self.page == 'optionspage' and 40 or 0
     
     for n, opt in pairs(menu.options) do
         if tonumber( n ) ~= nil  then
-            love.graphics.print( opt, 150 + xoffset, y)
+            love.graphics.print( opt, 300 + xoffset, y)
             if self.option_map[opt] then
               local option = self.option_map[opt]
               if option.bool ~= nil then
                   if option.bool then
-                      love.graphics.draw( self.checkbox_checked, 366, y )
+                      love.graphics.draw( self.checkbox_checked, 732, y )
                   else
-                      love.graphics.draw( self.checkbox_unchecked, 366, y )
+                      love.graphics.draw( self.checkbox_unchecked, 732, y )
                   end
               elseif option.range ~= nil then
-                  love.graphics.draw( self.range, 336, y + 2 )
-                  love.graphics.draw( self.range_arrow, 338 + ( ( ( self.range:getWidth() - 1 ) / ( option.range[2] - option.range[1] ) ) * ( option.range[3] - 1 ) ), y + 9 )
+                  love.graphics.draw( self.range, 732, y + 4 )
+                  love.graphics.draw( self.range_arrow, 732 + ( ( ( self.range:getWidth() - 1 ) / ( option.range[2] - option.range[1] ) ) * ( option.range[3] - 1 ) ), y + 18 )
               end
             end
-            y = y + 26
+            y = y + 52
         end
     end
 
     if self.page ~= 'optionspage' then
-      love.graphics.draw( self.arrow, 138, 124 + ( 26 * ( menu.selection - 1 ) ) )
+      love.graphics.draw( self.arrow, 276, 248 + ( 52 * ( menu.selection - 1 ) ) )
     else
       love.graphics.setColor(255,255,255,255)
-      love.graphics.draw( self.bigarrow, 138, 116 + ( 26 * ( menu.selection - 1) ) )
+      love.graphics.draw( self.bigarrow, 276, 232 + ( 52 * ( menu.selection - 1) ) )
     end
     love.graphics.setColor( 255, 255, 255, 255 )
 end
