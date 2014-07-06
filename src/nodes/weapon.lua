@@ -45,9 +45,9 @@ function Weapon.new(node, collider, plyr, weaponItem)
     weapon.sheetWidth = weapon.sheet:getWidth()
     weapon.sheetHeight = weapon.sheet:getHeight()
     weapon.frameWidth = weapon.sheetWidth/colAmt
-    weapon.frameHeight = weapon.sheetHeight-15
-    weapon.width = props.width or 10
-    weapon.height = props.height or 10
+    weapon.frameHeight = weapon.sheetHeight-30
+    weapon.width = props.width or 20
+    weapon.height = props.height or 20
     weapon.dropWidth = props.dropWidth
     weapon.dropHeight = props.dropHeight
     weapon.bbox_width = props.bbox_width

@@ -27,7 +27,7 @@ function Token.new( node, collider)
 
     token.position = {
         x = node.x + token.width / 2,
-        y = node.y - token.height - 5
+        y = node.y - token.height - 10
     }
     token.velocity = {
         x = utils.rsign() * ( (math.random(100) + 10 ) * 3),

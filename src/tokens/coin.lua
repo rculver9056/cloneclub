@@ -1,7 +1,7 @@
 return {
     name = 'coin',
-    width = 8,
-    height = 9,
+    width = 16,
+    height = 18,
     value = 1,
     frames = '1-2,1',
     speed = 0.3,

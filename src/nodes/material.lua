@@ -21,7 +21,7 @@ function Material.new(node, collider)
     material.name = node.name
     material.type = 'material'
     material.image = love.graphics.newImage('images/materials/'..node.name..'.png')
-    material.image_q = love.graphics.newQuad( 0, 0, 24, 24, material.image:getWidth(),material.image:getHeight() )
+    material.image_q = love.graphics.newQuad( 0, 0, 48, 48, material.image:getWidth(),material.image:getHeight() )
     material.foreground = node.properties.foreground
     material.collider = collider
     material.bb = collider:addRectangle(node.x, node.y, node.width, node.height)
@@ -32,7 +32,7 @@ function Material.new(node, collider)
     material.velocity = {x = 0, y = 0}
     material.width = node.width
     material.height = node.height
-    material.bb_offset_x = (24 - node.width) / 2 -- positions bb for materials smaller than 24px
+    material.bb_offset_x = (48 - node.width) / 2 -- positions bb for materials smaller than 24px
 
     material.touchedPlayer = nil
     material.exists = true

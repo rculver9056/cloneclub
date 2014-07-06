@@ -1,7 +1,7 @@
 return {
     name = 'health',
-    width = 13,
-    height = 12,
+    width = 26,
+    height = 24,
     value = 5,
     frames = '1-2,1',
     speed = 0.3,

@@ -2,11 +2,11 @@ return {
   name = 'hippy',
   die_sound = 'hippy_kill',
   --attack_sound = {'peace', 'sex', 'drugs'},
-  height = 48,
-  width = 48,
-  bb_width = 30,
-  bb_height = 24,
-  bb_offset = {x=0, y=12},
+  height = 96,
+  width = 96,
+  bb_width = 60,
+  bb_height = 48,
+  bb_offset = {x=0, y=24},
   damage = 10,
   hp = 6,
   vulnerabilities = {'slash'},
@@ -40,12 +40,12 @@ return {
       enemy.direction = 'right'
     end
     
-    if math.abs(enemy.position.x - player.position.x) < 2 or enemy.state == 'dying' or enemy.state == 'attack' then
+    if math.abs(enemy.position.x - player.position.x) < 4 or enemy.state == 'dying' or enemy.state == 'attack' then
       -- stay put
     elseif enemy.direction == 'left' then
-      enemy.position.x = enemy.position.x - (10 * dt)
+      enemy.position.x = enemy.position.x - (20 * dt)
     else
-      enemy.position.x = enemy.position.x + (10 * dt)
+      enemy.position.x = enemy.position.x + (20 * dt)
     end
     if enemy.floor then
       if enemy.position.y < enemy.floor then
