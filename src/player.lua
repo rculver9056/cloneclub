@@ -56,16 +56,16 @@ function Player.new(collider)
     }})
     plyr.controls = InputController.get()
 
-    plyr.width = 48
-    plyr.height = 48
-    plyr.bbox_width = 18
-    plyr.bbox_height = 44
+    plyr.width = 96
+    plyr.height = 96
+    plyr.bbox_width = 36
+    plyr.bbox_height = 88
     plyr.character = character.current()
 
     --for damage text
     plyr.healthText = {x=0, y=0}
     plyr.healthVel = {x=0, y=0}
-    plyr.max_health = 100
+    plyr.max_health = 10
     plyr.health = plyr.max_health
     
     plyr.jumpDamage = 3
@@ -205,9 +205,9 @@ end
 -- @return nil
 function Player:moveBoundingBox()
     self.top_bb:moveTo(self.position.x + self.width / 2,
-                   self.position.y + (self.height / 3) + 2)
+                   self.position.y + (self.height / 3) + 4)
     self.bottom_bb:moveTo(self.position.x + self.width / 2,
-                   self.position.y + (3*self.height / 4) + 2)
+                   self.position.y + (3*self.height / 4) + 4)
     self.attack_box:update()
 end
 

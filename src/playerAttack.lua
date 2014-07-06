@@ -17,9 +17,9 @@ function PlayerAttack.new(collider,plyr)
 
     setmetatable(attack, PlayerAttack)
 
-    attack.width = 10
-    attack.height = 18
-    attack.radius = 10
+    attack.width = 20
+    attack.height = 36
+    attack.radius = 20
     attack.collider = collider
     attack.bb = collider:addRectangle(0,0,attack.width,attack.height)
     attack.bb.node = attack
@@ -35,9 +35,9 @@ function PlayerAttack:update()
     
     
     if player.character.direction=='right' then
-        self.bb:moveTo(player.position.x + 24 + 20, player.position.y+28)
+        self.bb:moveTo(player.position.x + 48 + 40, player.position.y+56)
     else
-        self.bb:moveTo(player.position.x + 24 - 20, player.position.y+28)
+        self.bb:moveTo(player.position.x + 48 - 40, player.position.y+56)
     end
 end
 
@@ -56,12 +56,12 @@ function PlayerAttack:collide(node, dt, mtv_x, mtv_y)
     local attackNode = { x = tlx - x_offset, y = tly,
                         properties = {
                             sheet = 'images/characters/attack.png',
-                            height = 20, width = 20,
+                            height = 40, width = 40,
                             flip = flip
                           }
                         }
     if node.hurt then
-        local knockback = self.player.punchKnockback and (self.player.character.direction == 'right' and 15 or -15) or nil
+        local knockback = self.player.punchKnockback and (self.player.character.direction == 'right' and 30 or -30) or nil
         sound.playSfx('punch')
         local attackSprite = Sprite.new(attackNode, self.collider)
         attackSprite.containerLevel = Gamestate.currentState()

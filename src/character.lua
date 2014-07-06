@@ -109,12 +109,8 @@ function module.current()
   character.sheets = love.graphics.newImage(basePath)
   character.sheets:setFilter('nearest', 'nearest')
 
-  character.mask = love.graphics.newQuad(0, character.offset, 48, 35,
-                                         character.sheets:getWidth(),
-                                         character.sheets:getHeight())
-
 	character.positions = utils.require('positions/default')
-  character._grid = anim8.newGrid(48, 48, 
+  character._grid = anim8.newGrid(96, 96, 
                                   character.sheets:getWidth(),
                                   character.sheets:getHeight())
 
