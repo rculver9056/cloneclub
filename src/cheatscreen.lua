@@ -62,12 +62,12 @@ keys['7'] = { UP='0', DOWN='4', LEFT='p', RIGHT='8' }
 keys['8'] = { UP='0', DOWN='5', LEFT='7', RIGHT='9' }
 keys['9'] = { UP='0', DOWN='6', LEFT='8', RIGHT='q' }
 
-local keyboard_x = 20
-local keyboard_y = 200
+local keyboard_x = 40
+local keyboard_y = 400
 
-local keyheight = 25
-local keywidth = 25
-local keyspace = 5
+local keyheight = 50
+local keywidth = 50
+local keyspace = 10
 
 function cheatscreen:update(dt)
     self.cmd.cursor_pos = self.cmd.offset_x + ( ( string.len( self.cmd.prompt ) + 1 + string.len( self.cmd.current ) ) * self.cmd.char_width )
@@ -81,14 +81,14 @@ end
 function cheatscreen:enter( previous, real_previous )
     self.cmd = {
         active = true,
-        offset_x = 20,
-        offset_y = 20,
+        offset_x = 40,
+        offset_y = 60,
         current = '',
         prompt = 'C:\\hawthornelabs\\hawkthorne >',
-        char_width = 6.5,
+        char_width = 13,
         blink_rate = 30,
         queue = {},
-        line_height = 14,
+        line_height = 28,
         cnf = 'Command Not Found',
         max_lines = 11,
         space = '     ',
@@ -97,7 +97,7 @@ function cheatscreen:enter( previous, real_previous )
     
     self.cycle = 0
     
-    sound.playMusic( "daybreak" )
+    --sound.playMusic( "daybreak" )
 
     fonts.set( 'courier' )
     
@@ -194,7 +194,7 @@ function cheatscreen:draw()
         love.graphics.print( self.cmd.prompt, self.cmd.offset_x, y, 0, 0.5, 0.5)
         love.graphics.print( self.cmd.current, self.cmd.offset_x + ( ( string.len( self.cmd.prompt ) + 1 ) * self.cmd.char_width ), y, 0, 0.5, 0.5 )
         if self.cmd.blink_state then
-            love.graphics.rectangle( 'fill', self.cmd.cursor_pos, y, 5, 10)
+            love.graphics.rectangle( 'fill', self.cmd.cursor_pos, y, 10, 20)
         end
     end
     
@@ -222,7 +222,7 @@ function cheatscreen:draw()
                     love.graphics.setColor( 88, 246, 0, 240 )
                 end
                 utils.roundedrectangle( kx, ky, w, h, keywidth / 6 )
-                love.graphics.print( display, kx + 9, ky + 6, 0, 0.6, 0.7)
+                love.graphics.print( display, kx + 18, ky + 12, 0, 0.6, 0.7)
             end
         end
     end
