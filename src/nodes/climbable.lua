@@ -57,7 +57,6 @@ function Climbable:collide( node, dt, mtv_x, mtv_y )
 
     if not player.isClimbing then return end
 
-    player.fall_damage = 0
     player.velocity.y = -(game.gravity * dt) / 2 -- prevent falling
     player.velocity.x = player.velocity.x * 0.8 -- horizontal resistance
     player.since_solid_ground = 0

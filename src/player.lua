@@ -21,7 +21,7 @@ Player.isPlayer = true
 Player.startingMoney = 0
 Player.married = false
 
-Player.jumpFactor = 1
+Player.jumpFactor = 1.2
 Player.speedFactor = 1
 
 -- single 'character' object that handles all character switching, costumes and animation
@@ -46,7 +46,6 @@ function Player.new(collider)
     plyr.married = false
     plyr.quest = nil
     plyr.questParent = nil
-    plyr.affection = {}
     
     plyr.controlState = Statemachine.create({
         initial = 'normal',
@@ -62,9 +61,6 @@ function Player.new(collider)
     plyr.bbox_height = 88
     plyr.character = character.current()
 
-    --for damage text
-    plyr.healthText = {x=0, y=0}
-    plyr.healthVel = {x=0, y=0}
     plyr.max_health = 10
     plyr.health = plyr.max_health
     
@@ -111,7 +107,6 @@ function Player:refreshPlayer(collider)
     self.actions = {}
 
     self.velocity = {x=0, y=0}
-    self.fall_damage = 0
     self.since_solid_ground = 0
     self.since_down = 0
     self.platform_dropping = false
@@ -414,7 +409,6 @@ function Player:update( dt )
 
     if self.velocity.y > game.max_y then
         self.velocity.y = game.max_y
-        self.fall_damage = self.fall_damage + game.fall_dps * dt
     end
     -- end sonic physics
     
@@ -490,8 +484,6 @@ function Player:update( dt )
     else
         self.character:update(dt)
     end
-
-    self.healthText.y = self.healthText.y + self.healthVel.y * dt
     
     sound.adjustProximityVolumes()
 end
@@ -505,9 +497,7 @@ end
 -- @param damage The amount of damage to deal to the player
 --
 function Player:hurt(damage)
-    --Minimum damage is 5%
-    --Prevents damage from falling off small heights.
-    if damage < 5 then return end
+
     if self.invulnerable or self.godmode or self.dead then
         return
     end
@@ -526,9 +516,6 @@ function Player:hurt(damage)
     if not color then color = self.color end
 
     if damage ~= nil then
-        self.healthText.x = self.position.x + self.width / 2
-        self.healthText.y = self.position.y
-        self.healthVel.y = -35
         self.damageTaken = damage
         self.health = math.max(self.health - damage, 0)
     end
@@ -565,16 +552,6 @@ function Player:potionFlash(duration,color)
     end)
 
     self:startBlink()
-end
-
----
--- Call to take falling damage, and reset self.fall_damage to 0
--- @return nil
-function Player:impactDamage()
-    if self.fall_damage > 0 then
-        self:hurt(self.fall_damage)
-    end
-    self.fall_damage = 0
 end
 
 ---
@@ -646,27 +623,9 @@ function Player:draw()
 
     local health = math.ceil(self.damageTaken * -1 / 10)
 
-    if self.rebounding and self.damageTaken > 0 then
-        love.graphics.setColor( 255, 0, 0, 255 )
-        love.graphics.print(health, self.healthText.x, self.healthText.y, 0, 0.7, 0.7)
-    end
-
     love.graphics.setColor( 255, 255, 255, 255 )
     
     love.graphics.setStencil()
-end
-
--- Modifies the affection level of an npc toward the player
--- @name the name of the npc
--- @param amount the amount to modify the affection level
--- @return the updated affection level
-function Player:affectionUpdate(name,amount)
-  if not self.affection[name] then
-    self.affection[name] = amount
-  else
-    self.affection[name] = self.affection[name] + amount
-  end
-  return self.affection[name]
 end
 
 -- Sets the sprite states of a player based on a preset combination
@@ -784,7 +743,6 @@ end
 function Player:floor_pushback(node, new_y)
     self:ceiling_pushback(node, new_y)
     self.jumping = false
-    self:impactDamage()
     self:restore_solid_ground()
 end
 

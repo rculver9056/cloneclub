@@ -227,7 +227,6 @@ function Floorspace:update(dt, player)
             player:moveBoundingBox()
             player.jumping = false
             player.rebounding = false
-            player:impactDamage()
             player:restore_solid_ground()
             fp:correctPlayer( player, self.height )
             fp:moveBoundingBox()
