@@ -205,7 +205,7 @@ function Inventory:keypressed( button )
         SELECT = self.close,
         START = self.close,
         INTERACT = self.drop,
-        ATTACK = self.select
+        JUMP = self.select
     }
     if self:isOpen() and keys[button] then keys[button](self) end
 end

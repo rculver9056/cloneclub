@@ -132,24 +132,13 @@ function cheatscreen:keypressed( button )
             -- start parse
             local toggleNotice = function(code) return cheat:is(code) and 'Enabled' or 'Disabled' end
             local codes = {
-                --quits is the set of exit commands, represented as a reverse list.
-                quits = {['..']=1, ['quit']=2, ['exit']=3, ['log off']=4, ['logoff']=5, ['log out']=6, ['logout']=7, ['edison out']=8},
-                ['use respect'] = {'give_weapons', 'Weapons granted'},
-                ['pop pop'] = {'jump_high', 'Extra High Jump: '},
-                ['spacetime'] = {'god', 'God Mode: '},
-                ['go abed go'] = {'super_speed', 'Super Speed: '},
-                ['hello rich people'] = {'give_money', 'Money granted'},
-                ['seacrest hulk'] = {'max_health', 'Health filled'},
-                ['greendale is where i belong'] = {'give_gcc_key', 'Key granted'},
-                ['zombie'] = {'give_taco_meat', 'You found some questionable food in the dumpster'},
-                ['this is more complex'] = {'give_materials', 'Materials granted'},
-                ['i want tbd'] = {'give_scrolls', 'Scrolls granted'},
-                ['no no juice'] = {'give_potions', 'Potions granted'},
-				['dan harmon'] = {'give_master_key', 'Key granted'},
+                ['weapons'] = {'give_weapons', 'Weapons granted'},
+                ['324b21'] = {'god', 'God Mode: '},
+                ['heal'] = {'max_health', 'Health filled'},
+                ['materials'] = {'give_materials', 'Materials granted'},
+				        --['master'] = {'give_master_key', 'Key granted'},
             }
-            if codes.quits[self.cmd.current] then
-                cheatscreen:exit()
-            elseif codes[self.cmd.current] then
+            if codes[self.cmd.current] then
                 local code = codes[self.cmd.current]
                 cheat:toggle(code[1])
                 table.insert( self.cmd.queue, self.cmd.space .. code[2] .. (string.sub(code[2],#code[2]-1) == ': ' and toggleNotice(code[1]) or ''))
@@ -163,11 +152,11 @@ function cheatscreen:keypressed( button )
                     table.remove( self.cmd.queue, 1 )
                 end
             end
-        elseif button == 'JUMP' then
+        elseif button == 'ATTACK' then
             self.cmd.current = string.sub(self.cmd.current, 1, -2 )
         elseif button == 'UP' or button == 'DOWN' or button == 'LEFT' or button == 'RIGHT' then
             self.current_key = keys[self.current_key][button]
-        elseif button == 'ATTACK' then
+        elseif button == 'JUMP' then
             if special[self.current_key] and special[self.current_key].key then
                 if special[self.current_key].key == 'enter' then
                     self:keypressed( 'SELECT' )
