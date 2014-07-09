@@ -1,3 +1,4 @@
+local camera = require 'camera'
 local fonts = require 'fonts'
 local Gamestate = require 'vendor/gamestate'
 local Player = require 'player'
@@ -16,6 +17,7 @@ function state:enter(previous, player)
 
   fonts.set( 'big' )
 
+  camera:setPosition(0, 0)camera:setPosition(0, 0)
   self.option = 0
   
   if previous ~= Gamestate.get('options') and previous ~= Gamestate.get('instructions') then
@@ -77,8 +79,8 @@ end
 function state:draw()
 
   love.graphics.draw(self.background, 
-   window.width / 2 - self.background:getWidth() / 2,
-   window.height / 2 - self.background:getHeight() / 2)
+   camera:getWidth() / 2 - self.background:getWidth() / 2,
+   camera:getHeight() / 2 - self.background:getHeight() / 2)
 
   local controls = self.player.controls
 

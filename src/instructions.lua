@@ -1,3 +1,4 @@
+local camera = require 'camera'
 local controls = require('inputcontroller').get()
 local fonts = require 'fonts'
 local Gamestate = require 'vendor/gamestate'
@@ -56,6 +57,8 @@ function state:enter(previous)
   fonts.set( 'big' )
   sound.playMusic( "theme" )
 
+  camera:setPosition(0, 0)
+
   self.instructions = controls:getActionmap()
   self.previous = previous
   self.option = 0
@@ -78,8 +81,8 @@ function state:draw()
   love.graphics.setColor( 255, 255, 255, 255 )
 
   love.graphics.draw(self.background, 
-  window.width / 2 - self.background:getWidth() / 2,
-  window.height / 2 - self.background:getHeight() / 2)
+  camera:getWidth() / 2 - self.background:getWidth() / 2,
+  camera:getHeight()  / 2 - self.background:getHeight() / 2)
 
   local n = 1
 
