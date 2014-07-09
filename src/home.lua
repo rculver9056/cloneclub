@@ -6,6 +6,7 @@ local fonts     = require 'fonts'
 local Gamestate = require 'vendor/gamestate'
 local menu      = require 'menu'
 local sound = require 'vendor/TEsound'
+local tween     = require 'vendor/tween'
 local window    = require 'window'
 
 local state = Gamestate.new()
@@ -29,69 +30,72 @@ function state:init()
 end
 
 function state:enter(previous)
-  self.splash = love.graphics.newImage("images/menu/openingmenu.png")
-  self.arrow = love.graphics.newImage("images/menu/small_arrow.png")
+	
+  self.dna = love.graphics.newImage("images/menu/dna.png")
+  local g1 = anim8.newGrid(200, 672, self.dna:getWidth(), self.dna:getHeight())
+  self.dnaloop = anim8.newAnimation('loop', g1('1-4,1'), 0.25)
 
-  self.line = " terminal:// \n\n operations://loadprogram:(true) \n\n"..
-    " program:-journey-to-the-center-of-hawkthorne \n\n loading simulation ..."
-  self.line_short = ""
-  self.line_count = 1
-  self.line_timer = 0
+  self.barcode = love.graphics.newImage("images/menu/barcode.png")
+  self.barcode_position = {x = (window.width - self.barcode:getWidth())/2, y = (window.height - self.barcode:getHeight())/2}
+  tween(1, self.barcode_position, {x = 100, y = 150})
+  self.double_speed = false	
+
+   self.arrow = love.graphics.newImage("images/menu/small_arrow.png")
 
   self.previous = previous
+
 end
 
 function state:keypressed( button )
-  self.menu:keypressed(button)
+ 
+  if self.barcode_position.x > 100 then
+	  self.double_speed = true
+	else
+    self.menu:keypressed(button)
+  end
 end
 
 function state:update(dt)
-  
-   self.line_timer = self.line_timer + dt
-   if self.line_timer > 0.05 then
-    self.line_timer = 0
-    self.line_short = self.line_short..self.line.sub(self.line, self.line_count, self.line_count)
-    self.line_count = self.line_count + 1
+
+  self.dnaloop:update(dt)
+	
+	if self.double_speed then
+    tween.update(dt * 20)
   end
+
 end
 
 function state:draw()
 
+  fonts.set( 'big' )
+
   --background colour
-  love.graphics.setColor( 0, 0, 0, 255 )
+  love.graphics.setColor( 240, 240, 240, 255 )
   love.graphics.rectangle( 'fill', 0, 0, love.graphics:getWidth(), love.graphics:getHeight() )
   love.graphics.setColor( 255, 255, 255, 255 )
 
--- green terminal
-  fonts.set('courier')
-  love.graphics.setColor( 48, 254, 31, 225 )
-  love.graphics.print(self.line_short, 100, 100, 0, 0.5, 0.5 )
+	self.dnaloop:draw(self.dna, 834, 0)
+  love.graphics.draw(self.barcode, self.barcode_position.x, self.barcode_position.y)
 
-  -- control instructions
-  love.graphics.setColor(255, 255, 255)	
-  fonts.set( 'big' )
-  --love.graphics.printf(self.text, 0, window.height - 32, window.width, 'center', 0.5, 0.5)
- 
-  -- menu
-  local x = window.width / 2 - self.splash:getWidth()/2
-  local y = 2*window.height / 3 - self.splash:getHeight()/2
-  love.graphics.draw(self.splash, x, y)
-  love.graphics.draw(self.arrow, x + 24, y + 46 + 24 * (self.menu:selected() - 1))
-  for n,option in ipairs(self.menu.options) do
-    love.graphics.print(option, x + 46, y + 24 * n - 4, 0, 0.5, 0.5)
+  if self.barcode_position.x == 100 then
+    love.graphics.setColor(30, 30, 30, 255)
+    local x = 300
+    local y = 300
+    love.graphics.draw(self.arrow, x + 48, y + 92 + 24 * (self.menu:selected() - 1))
+    for n,option in ipairs(self.menu.options) do
+      love.graphics.print(option, x + 92, y +  46 + 24 * n - 4, 0, 0.5, 0.5)
+	  end
   end
+	
+	love.graphics.setColor( 255, 255, 255, 255 )
+
 end
 
 function state:leave()
-  
-  self.line = nil
-  self.line_short = nil
-  self.line_count = nil
-  self.line_timer = nil
 
-  self.splash = nil
   self.arrow = nil
-  self.text = nil
+  self.barcode = nil
+  self.dna = nil
  
   fonts.reset()
 end

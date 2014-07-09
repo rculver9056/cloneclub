@@ -119,7 +119,7 @@ end
 
 local function getSoundtrack(map)
     local prop = map.properties
-    return prop.soundtrack or "level"
+    return prop.soundtrack or "theme"
 end
 
 local Level = {}
