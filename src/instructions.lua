@@ -20,8 +20,8 @@ local menu = Menu.new({
 })
 
 local descriptions = {
-    UP = 'Move Up / Look',
-    DOWN = 'Move Down / Duck',
+    UP = 'Move Up',
+    DOWN = 'Move Down',
     LEFT = 'Move Left',
     RIGHT = 'Move Right',
     SELECT = 'Inventory',
@@ -52,8 +52,9 @@ function state:init()
 end
 
 function state:enter(previous)
+    love.graphics.setBackgroundColor(30, 30, 30)
     fonts.set( 'big' )
-    --sound.playMusic( "daybreak" )
+    sound.playMusic( "theme" )
 
     camera:setPosition(0, 0)
     self.instructions = controls:getActionmap()
@@ -75,6 +76,8 @@ end
 
 function state:draw()
 
+  love.graphics.setColor( 255, 255, 255, 255 )
+
     love.graphics.draw(self.background, 
       camera:getWidth() / 2 - self.background:getWidth() / 2,
       camera:getHeight() / 2 - self.background:getHeight() / 2)
@@ -88,7 +91,7 @@ function state:draw()
     love.graphics.print(back, 50, 50)
     love.graphics.print(howto, 50, 110)
     love.graphics.print(self.statusText, self.left_column, 560)
-    love.graphics.setColor( 0, 0, 0, 255 )
+    love.graphics.setColor( 30, 30, 30, 255 )
 
     for i, button in ipairs(menu.options) do
         local y = self.top + self.spacing * (i - 1)

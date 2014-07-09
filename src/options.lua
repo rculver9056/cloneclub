@@ -171,6 +171,7 @@ function state:updateHardcore()
 end
 
 function state:enter(previous, target)
+    love.graphics.setBackgroundColor(30, 30, 30)
     fonts.set( 'big' )
 
     camera:setPosition(0, 0)

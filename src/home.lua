@@ -13,7 +13,7 @@ local state = Gamestate.new()
 
 function state:init()
 
-  self.menu = menu.new({ 'start', 'controls', 'options', 'credits', 'exit' })
+  self.menu = menu.new({ 'start', 'controls', 'about', 'exit' })
   self.menu:onSelect(function(option)
     if option == 'exit' then
       love.event.push("quit")
@@ -30,6 +30,10 @@ function state:init()
 end
 
 function state:enter(previous)
+
+  love.graphics.setBackgroundColor(240, 240, 240)
+
+  sound.playMusic("theme")
 	
   self.dna = love.graphics.newImage("images/menu/dna.png")
   local g1 = anim8.newGrid(200, 672, self.dna:getWidth(), self.dna:getHeight())
@@ -68,10 +72,6 @@ end
 function state:draw()
 
   fonts.set( 'big' )
-
-  --background colour
-  love.graphics.setColor( 240, 240, 240, 255 )
-  love.graphics.rectangle( 'fill', 0, 0, love.graphics:getWidth(), love.graphics:getHeight() )
   love.graphics.setColor( 255, 255, 255, 255 )
 
 	self.dnaloop:draw(self.dna, 834, 0)
@@ -79,15 +79,13 @@ function state:draw()
 
   if self.barcode_position.x == 100 then
     love.graphics.setColor(30, 30, 30, 255)
-    local x = 300
+    local x = 400
     local y = 300
-    love.graphics.draw(self.arrow, x + 48, y + 92 + 24 * (self.menu:selected() - 1))
+    love.graphics.draw(self.arrow, x + 48, y + 138 + 48 * (self.menu:selected() - 1), 0, 2, 2)
     for n,option in ipairs(self.menu.options) do
-      love.graphics.print(option, x + 92, y +  46 + 24 * n - 4, 0, 0.5, 0.5)
+      love.graphics.print(option, x + 92, y +  46 + 48 * n - 4)
 	  end
   end
-	
-	love.graphics.setColor( 255, 255, 255, 255 )
 
 end
 

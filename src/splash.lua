@@ -16,8 +16,9 @@ end
 
 function state:enter(previous)
 
+  love.graphics.setBackgroundColor(240, 240, 240)
+
   sound.playMusic("theme")
-	sound.volume("music", 0.5)
 
   self.faces = love.graphics.newImage("images/menu/faces.png")
 	self.faces_position = {x=-self.faces:getWidth()}
@@ -61,9 +62,6 @@ function state:draw()
 
   fonts.set( 'big' )
 
-  --background colour
-  love.graphics.setColor( 240, 240, 240, 255 )
-  love.graphics.rectangle( 'fill', 0, 0, love.graphics:getWidth(), love.graphics:getHeight() )
   love.graphics.setColor( 255, 255, 255, 255 )
 
 	self.dnaloop:draw(self.dna, 834, 0)
@@ -74,8 +72,7 @@ function state:draw()
 	if self.blink <= 0.5 then
     love.graphics.print("[PRESS START]", 360, 570, 0, 0.5, 0.5)
   end
-  
-	love.graphics.setColor( 255, 255, 255, 255 )
+
 end
 
 function state:leave()

@@ -13,7 +13,7 @@ function state:init()
 end
 
 function state:enter(previous, player)
-    love.graphics.setBackgroundColor(0, 0, 0)
+    love.graphics.setBackgroundColor(30, 30, 30)
 
     fonts.set( 'big' )
 
@@ -35,10 +35,10 @@ end
 
 function state:keypressed( button )
     if button == "UP" then
-        self.option = (self.option - 1) % 4
+        self.option = (self.option - 1) % 3
         sound.playSfx( 'click' )
     elseif button == "DOWN" then
-        self.option = (self.option + 1) % 4
+        self.option = (self.option + 1) % 3
         sound.playSfx( 'click' )
     end
 
@@ -67,12 +67,10 @@ function state:keypressed( button )
         if self.option == 0 then
             Gamestate.switch('instructions')
         elseif self.option == 1 then
-            Gamestate.switch('options', self.previous)
-        elseif self.option == 2 then
             Player.kill()
             self.previous:quit()
             Gamestate.switch('home')
-        elseif self.option == 3 then
+        elseif self.option == 2 then
             love.event.push("quit")
         end
     end
@@ -86,13 +84,13 @@ function state:draw()
 
     local controls = self.player.controls
 
-    love.graphics.setColor( 0, 0, 0, 255 )
-    love.graphics.print('Controls', 396, 202)
-    love.graphics.print('Options', 396, 262)
-    love.graphics.print('Quit to Menu', 396, 322)
-    love.graphics.print('Quit to Desktop', 396, 382)
+    love.graphics.setColor( 30, 30, 30, 255 )
+		love.graphics.print('Game Paused', 396, 202)
+    love.graphics.print('Controls', 396, 322)
+    love.graphics.print('Quit to Menu', 396, 382)
+    love.graphics.print('Quit to Desktop', 396, 442)
     love.graphics.setColor( 255, 255, 255, 255 )
-    love.graphics.draw(self.arrow, 312, 192 + 60 * self.option)
+    love.graphics.draw(self.arrow, 312, 312 + 60 * self.option)
     local back = controls:getKey("START") .. ": BACK TO GAME"
     local howto = controls:getKey("ATTACK") .. " OR " .. controls:getKey("JUMP") .. ": SELECT ITEM"
     love.graphics.print(back, 50, 50)
