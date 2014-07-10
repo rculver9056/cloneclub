@@ -255,7 +255,7 @@ function Player:keypressed( button, map )
                 return true
             end
         else
-            self.inventory:open()
+            --self.inventory:open()
             return true
         end
     elseif button == 'ATTACK' then

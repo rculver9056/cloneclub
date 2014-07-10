@@ -51,7 +51,7 @@ function state:keypressed( button )
 	  Gamestate.switch('home')
   elseif button =="JUMP" then
     character.pick(self.characters[self.pick])
-    Gamestate.switch('studyroom', 'main') 
+    Gamestate.switch('station', 'main') 
   end
 end
 

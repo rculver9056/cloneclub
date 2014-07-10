@@ -37,7 +37,7 @@ local function getSourceIds(t)
 end
 
 ---
--- Loads all levels reachable from 'studyroom' into {@link levels}
+-- Loads all levels reachable from ' station' into {@link levels}
 -- @return nil
 local function loadLevels()
   if levels then return end
@@ -92,7 +92,7 @@ local function loadLevels()
   --   item.fromLevel string - name of the source level (for reporting purposes in case of errors) [required]
   --   item.fromDoor Door - door in the source level (for reporting purposes in case of errors) [optional]
   local levelNamesTodo = {}
-  addTodoItem(levelNamesTodo, {toLevel="studyroom", fromLevel="(default)"})
+  addTodoItem(levelNamesTodo, {toLevel=" station", fromLevel="(default)"})
 
   while #levelNamesTodo > 0 do
     local levelTodo = removeTodoItem(levelNamesTodo)

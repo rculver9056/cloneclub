@@ -149,7 +149,7 @@ function Level.new(name)
     level.collider = HC(100, on_collision, collision_stop)
     level.offset = getCameraOffset(level.map)
     level.music = getSoundtrack(level.map)
-    level.spawn = (level.map.properties and level.map.properties.respawn) or 'studyroom'
+    level.spawn = (level.map.properties and level.map.properties.respawn) or 'station'
     level.title = getTitle(level.map)
     level.environment = {r=255, g=255, b=255, a=255}
     level.trackPlayer = true

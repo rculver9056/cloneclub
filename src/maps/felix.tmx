@@ -1,83 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="14" tilewidth="48" tileheight="48">
+<map version="1.0" orientation="orthogonal" width="52" height="16" tilewidth="48" tileheight="48">
  <properties>
   <property name="floor" value="9"/>
+  <property name="offset" value="1"/>
   <property name="respawn" value="studyroom"/>
  </properties>
- <tileset firstgid="1" name="greendale-interior" tilewidth="48" tileheight="48">
-  <image source="../images/tilesets/greendale-interior.png" width="528" height="288"/>
+ <tileset firstgid="1" name="felix" tilewidth="48" tileheight="48">
+  <image source="../images/tilesets/felix.png" width="1344" height="720"/>
  </tileset>
- <layer name="background" width="100" height="14">
+ <layer name="background" width="52" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt0LENgDAUQ0FLSU1qJFZgZ0ZlgUBF8YErrnJjvZ6kA7xAAwCAH1oKfPi6WePtwnqz8YxZ40Epe3JQxwnHl28B
+   eJzd1VVvkAcAheEWd4fh7lZgwIa7uzsUbZFiBYoVd3f3DQgwwd0TNpgBczZYsg0ZDHdIkIc7fsFHwsVze97LExoSEhKHuMQjPglISCISk4SkJCM5KUhJKlKThrSkIz0Z+ICMZCIzoQF1spGdHOQkF7nJQ17ykZ8CFKQQhSlCUYpRnDBKUJJSfEhpylA2wE45ylOBilSiMlWoSjWqU4Oa1KI2dahLPerTgIY0ojFNaEozmgfYaUVr2tCWdrSnAx3pRGe6EE5XutGdHvSkFxFE0ps+9KUfUfQPsDOIwUQzhKEMI4bhjGAkoxhNLGMYyzjGM4GJTGIyU5jKNKYzI8DObOYwl3nMZwELWcRilrCUZSxnBStZxWrWsJZ1rGcDn/ApG9kUYGcLW9nGZ3zOF3zJdnawk13sZg972cd+DnCQQxzmCEc5xnFOcDLAzim+4mtOc4Zv+Jbv+J4fOMs5zvMjP/Ezv/Arv/E7F/iDP7nIJf4KsPM3//Avl7nCVa7xH9e5wf/c5Ba3ucNd7nGfBzzkEY95wlOe8TzAzgte8oo3pxdKHOISj/gkICGJSEwSkpKM5KQgJalITRrSko70ZAgNrpOJzGQhK9nITg5ykovc5CEv+chPAQpSiMIUoSjFKE4YJShJqQA7ZSjLR3xMOcpTgYpUojJVqEo1qlODmtSiNnWoSz3q04CGNKJxgJ1mNKcFLWlFa9rQlna0pwMd6URnuhBOV7rRnR70pBcRRNKbPgF2oujPAAYyiMFEM4ShDCOG4YxgJKMYTSxjGMs4xjOBiUxiDWsD7ExnBjOZxWzmMJd5zGcBC1nEYpawlGUsZwUrWcXqt7bXvYPO5pD3y2tHVm/Y
   </data>
  </layer>
- <layer name="accents" width="100" height="14">
+ <layer name="accents" width="52" height="16">
   <data encoding="base64" compression="zlib">
-   eJztz7EKgDAMhOFuKthFHVzU939LM3ZrCBfB8n9w0KEkl1IAAMAoTtEfleiuzI5f3o//mCyzIEvCbs9MVf+M+yI2yy7IkbDbM1PVP+M+r9q8L8styBPo0dvtmanqr76v9r8Aw1ubAIh7AeKDDPY=
+   eJztzgENAAAEAEE9CKJ/MhHMZsz8JTgRAACAn3Q7UJR9bWTRJ/v6yKLPte9XAU5eAN8=
   </data>
  </layer>
- <objectgroup color="#ffff00" name="block" width="100" height="14">
-  <object x="0" y="576" width="4800" height="48"/>
-  <object x="0" y="0" width="4848" height="144"/>
+ <objectgroup color="#ffff00" name="block" width="52" height="16">
+  <object x="0" y="672" width="4800" height="96"/>
  </objectgroup>
- <objectgroup color="#ffff00" name="platform" width="100" height="14">
-  <object x="4301" y="554" width="91" height="10"/>
- </objectgroup>
- <objectgroup color="#ff00ff" name="nodes" width="100" height="14">
-  <object name="main" type="door" x="288" y="480" width="48" height="96">
+ <objectgroup color="#ff00ff" name="nodes" width="52" height="16">
+  <object name="main" type="door" x="288" y="576" width="48" height="96">
    <properties>
     <property name="level" value="station"/>
-    <property name="to" value="back"/>
+    <property name="to" value="next"/>
    </properties>
   </object>
-  <object name="exit" type="door" x="4560" y="480" width="48" height="96">
+  <object type="enemy" x="1824" y="576" width="96" height="96">
+   <properties>
+    <property name="enemytype" value="hippy"/>
+   </properties>
+  </object>
+  <object type="enemy" x="1392" y="576" width="96" height="96">
+   <properties>
+    <property name="enemytype" value="hippy"/>
+   </properties>
+  </object>
+  <object name="rebar" type="weapon" x="528" y="528" width="48" height="48"/>
+  <object name="next" type="door" x="2400" y="576" width="48" height="96">
    <properties>
     <property name="level" value="station"/>
     <property name="to" value="main"/>
    </properties>
   </object>
-  <object type="enemy" x="2640" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="2832" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="3456" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="3648" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="3840" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="1824" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="1392" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object type="enemy" x="1104" y="480" width="96" height="96">
-   <properties>
-    <property name="enemytype" value="hippy"/>
-   </properties>
-  </object>
-  <object name="rebar" type="weapon" x="480" y="528" width="48" height="48"/>
-  <object name="purse" type="material" x="624" y="528" width="48" height="48"/>
+  <object type="climbable" x="624" y="216" width="168" height="456"/>
+  <object type="climbable" x="1872" y="216" width="168" height="456"/>
+ </objectgroup>
+ <objectgroup name="platform" width="52" height="16">
+  <object x="864" y="624" width="48" height="48"/>
+  <object x="1032" y="576" width="72" height="96"/>
+  <object x="1152" y="576" width="48" height="96"/>
+  <object x="2112" y="624" width="48" height="48"/>
+  <object x="2280" y="576" width="72" height="96"/>
+  <object x="624" y="192" width="168" height="24"/>
+  <object x="1872" y="192" width="168" height="24"/>
  </objectgroup>
 </map>
