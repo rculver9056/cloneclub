@@ -2,13 +2,27 @@
 
 This 2D RPG/platformer based on the television programme Orphan Black. It's built using the [LÖVE](https://love2d.org/) game engine.
 
+[Screenshots](http://imgur.com/a/NxwQ6)
+
+## Features
+
+* Play as Sarah, Alison, Cosima or Helena
+* 2 levels (train station & outside Felix's loft)
+* pick up all the Emmys Tatiana Maslany should have won
+* attack Emmy voters with a piece of rebar
+
+
 ## Download the game
 
-Coming soon. Will be available for Windows, OS X, Linux and possible Chromebook.
+* [Windows](https://stackmachine-cloud.s3.amazonaws.com/56d736c01970b2a105c9344b/0.1.0/clone-club-win.zip?Signature=6MnAXJenpCmQzgDhjmkcJsSy7Mw%3D&Expires=1405028304&AWSAccessKeyId=AKIAIG5HXDTVEENNDMRQ)
+* [OS X](https://stackmachine-cloud.s3.amazonaws.com/56d736c01970b2a105c9344b/0.1.0/clone-club-osx.zip?Signature=x5IW3N%2BiHz7tKUtNXRnQ3JqdSPY%3D&Expires=1405028304&AWSAccessKeyId=AKIAIG5HXDTVEENNDMRQ)
+* [Linux](https://stackmachine-cloud.s3.amazonaws.com/56d736c01970b2a105c9344b/0.1.0/clone-club.love?Signature=AMNHSWgD3mzvxybox0uEjzcWt5Y%3D&Expires=1405028304&AWSAccessKeyId=AKIAIG5HXDTVEENNDMRQ)
 
-## Contribute to the game
+Windows and Mac users will need to unzip the zipped folder and run the game inside - some computers may give you a "rarely downloaded" warning message which you can over-ride. Linux users will also have to download the [love game engine](http://love2d.org/) to run the game.
 
-Contributions of any kind are welcome - coding, artwork, audio and level creation are all required.
+## Getting involved
+
+Contributions of any kind are welcome - coding, artwork, audio and level creation are all required. Anyone who wants to help out is more than welcome to jump on board. I'm in desperate need of artists but anyway you want to get involved is fine by me.
 
 ### Getting started with development on OS X / Linux
 
@@ -44,5 +58,5 @@ Artwork and audio files are licensed under [CC BY-NC 3.0](http://creativecommons
 
 ## Thanks
 
-A huge thanks to all of [Project Hawkthorne](http://projecthawkthorne.com) from whom I have borrowed large chunks of code. 
-
+Huge thank you goes [Project Hawkthorne](http://projecthawkthorne.com/) (the unofficial community game development team) of which I have been a part of for the past two years and have reused large portions of their code. Also thanks to [stackmachine](https://stackmachine.com/) who package up the game so it works on different operating systems.
+## Contribute to the game
