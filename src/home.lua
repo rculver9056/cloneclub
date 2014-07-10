@@ -20,8 +20,7 @@ function state:init()
     elseif option == 'controls' then
       Gamestate.switch('instructions')
 	  elseif option == 'start' then
-		  character.pick('sarah')
-		  Gamestate.switch('studyroom', 'main') 
+      Gamestate.switch('select')
     else
      Gamestate.switch(option)
     end
