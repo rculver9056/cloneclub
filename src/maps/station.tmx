@@ -29,8 +29,7 @@
   <object name="emmy" type="material" x="192" y="528" width="48" height="48"/>
   <object name="emmy" type="material" x="336" y="528" width="48" height="48"/>
   <object name="emmy" type="material" x="480" y="576" width="48" height="48"/>
-  <object name="emmy" type="material" x="672" y="624" width="48" height="48"/>
-  <object name="purse" type="material" x="816" y="528" width="48" height="48"/>
+  <object name="emmy" type="material" x="720" y="528" width="48" height="48"/>
   <object name="emmy" type="material" x="960" y="576" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#ffff00" name="floorspace" width="22" height="14" visible="0">
