@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="22" height="14" tilewidth="48" tileheight="48">
+ <properties>
+  <property name="jumping" value="false"/>
+  <property name="title" value="Greendale"/>
+ </properties>
+ <tileset firstgid="1" name="station" tilewidth="48" tileheight="48">
+  <image source="../images/tilesets/station.png" width="1056" height="672"/>
+ </tileset>
+ <layer name="background" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxNzFV0EAQAQNHBiDF6xOiRozc6pEtQOgQkpVNCQDqUVEJCkO5GWrqRbqVDGmmlleZyDh+c8+7vixIQEBCVQKIRnRjEJIhYBBObOMQlHvFJQEJCSERikpCUUJKRnBSkJBWpSUMYaUlHejKQkUyEk5ksZCUb2clBTiKIJBe5yUNe8pGfAhSkEIX5hCIUpRjFKUFJSlGaMpSlHJ9Sngp8xudUpBKVqUJVqlGdGtSkFl9QmzrU5UvqUZ8GNKQRjfmKJjSlGc1pQUta0Zo2tKUd7fmaDnSkE535hi50pRvf0p0e9KQXvelDX/rRnwF8x/cMZBCDGcJQhvEDPzKcEYxkFD8xmjGMZRw/M54J/MJEJjGZKUxlGtOZwUxmMZs5zGUe81nAQhaxmCX8ylKWsZwVrGQVq/mNNaxlHevZwEY2sZktbGUb29nBTn5nF7vZw172sZ8DHOQQhznCUY7xB39ynBOc5BSnOcNZznGeC/zFRS5xmStc5RrXucHf3OQWt7nDXe5xn3/4lwc85BGPecJTnvEf//OcF7zkFa95w1sCooioBBKN6MQgJkHEIpjYxCEu8YhPAhISQiISk4SkhJKM5KQgJak+/N4LIy3pSE8GMpKJcDKThaxkIzs5yEkEkeQiN3k++r4D3bqEmg==
+  </data>
+ </layer>
+ <layer name="accents" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUwIAsI23MlaORuSY0MneoAgCdNQBz
+  </data>
+ </layer>
+ <objectgroup color="#ff007f" name="nodes" width="22" height="14">
+  <object name="main" type="door" x="48" y="480" width="48" height="96"/>
+  <object name="studyroomMainDoor" type="door" x="960" y="432" width="48" height="96">
+   <properties>
+    <property name="button" value="UP"/>
+    <property name="level" value="hallway"/>
+    <property name="to" value="main"/>
+   </properties>
+  </object>
+  <object name="emmy" type="material" x="192" y="528" width="48" height="48"/>
+  <object name="emmy" type="material" x="336" y="528" width="48" height="48"/>
+  <object name="emmy" type="material" x="480" y="576" width="48" height="48"/>
+  <object name="emmy" type="material" x="672" y="624" width="48" height="48"/>
+  <object name="emmy" type="material" x="816" y="528" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup color="#ffff00" name="floorspace" width="22" height="14">
+  <object x="0" y="528" width="1056" height="144">
+   <properties>
+    <property name="primary" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

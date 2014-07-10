@@ -34,12 +34,7 @@ function SceneTrigger:initialize(node, collider, layer)
   self.isTrigger = true --eventually replace me
   self.x = node.x
   self.y = node.y
-  self.db = app.gamesaves:active()
   self.key = NAMESPACE .. node.properties.cutscene
-
-  if self.db:get(self.key, false) then --already seen
-    return
-  end
 
   local scene = require('nodes/cutscenes/' .. node.properties.cutscene)
   self.scene = scene.new(node, collider, layer)
@@ -97,7 +92,6 @@ function SceneTrigger:draw(player)
     current.player.controlState:standard()
     current.trackPlayer = true
     current.scene = nil
-    self.db:set(self.key, true)
   end
 end
 
