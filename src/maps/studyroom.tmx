@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="29" height="14" tilewidth="24" tileheight="24">
+ <properties>
+  <property name="jumping" value="false"/>
+  <property name="title" value="Greendale"/>
+ </properties>
+ <tileset firstgid="1" name="greendale_interior" tilewidth="24" tileheight="24">
+  <image source="../images/tilesets/greendale-interior.png" width="264" height="144"/>
+ </tileset>
+ <layer name="background" width="29" height="14">
+  <data encoding="base64" compression="zlib">
+   eJzTZWBgYKEj1gNiXSBmHiA76YWHip0Sw8SfnAwMDRxAmhTMicMMdHFcdooA1QsDaVKwCA4z0MVx2SkPVC8HpEnB8jjMQBenRXzykRCfMlTCkkSogdnJT0c8UHZaADETHbElEAMA8iEVHQ==
+  </data>
+ </layer>
+ <layer name="side walls" width="29" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBg0GegDwDa0wBjW9HBXpB9Vkh2ikPttaYhBtknjuQGcSimJUC3Y9TOUTuHqp3SNLZTGi1/guxTo7GdQPMbpJHKIVrbh2wvnazCAACthA7W
+  </data>
+ </layer>
+ <layer name="accents bg" width="29" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUYANcQMxNZztFgViMRmbz4rFTkUZ24gIKWOyUorGd2kCsgyamSmM7zYDYHE3MgMZ2DgYAAEaBAfg=
+  </data>
+ </layer>
+ <objectgroup color="#0000a4" name="nodes" width="29" height="14">
+  <object name="main" type="door" x="168" y="240" width="23" height="45"/>
+ </objectgroup>
+ <objectgroup name="floorspace" width="29" height="14">
+  <object x="24" y="312">
+   <properties>
+    <property name="primary" value="true"/>
+   </properties>
+   <polygon points="0,0 48,-48 576,-48 600,-24 624,-24 648,0"/>
+  </object>
+ </objectgroup>
+</map>
