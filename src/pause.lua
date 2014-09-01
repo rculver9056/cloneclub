@@ -20,7 +20,7 @@ function state:enter(previous, player)
   camera:setPosition(0, 0)camera:setPosition(0, 0)
   self.option = 0
   
-  if previous ~= Gamestate.get('options') and previous ~= Gamestate.get('instructions') then
+  if previous ~= Gamestate.get('options') and previous ~= Gamestate.get('controls') then
     self.previous = previous
     self.player = player
   end
@@ -65,7 +65,7 @@ function state:keypressed( button )
   if button == "ATTACK" or button == "JUMP" then
     sound.playSfx( 'confirm' )
     if self.option == 0 then
-      Gamestate.switch('instructions')
+      Gamestate.switch('controls')
     elseif self.option == 1 then
       Player.kill()
       self.previous:quit()

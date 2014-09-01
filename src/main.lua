@@ -53,7 +53,7 @@ function love.load(arg)
 
   local mixpanel = require 'vendor/mixpanel'
 
-  local state, door, position = 'splash', nil, nil
+  local state, door, position = 'home', nil, nil
 
   -- SCIENCE!
   mixpanel.init(app.config.iteration)
@@ -99,7 +99,7 @@ function love.load(arg)
     state = args["level"]
     -- If we're jumping to a level, then we need to be 
     -- sure to set the Gamestate.home variable
-    Gamestate.home = "splash"
+    Gamestate.home = "home"
   end
 
   if args["door"] ~= "" then
