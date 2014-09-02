@@ -22,7 +22,7 @@ function Character:sheet()
 end
 
 function Character:getSheet()
-  local path = 'images/characters/' .. self.name .. '.png'
+  local path = 'images/characters/' .. self.name .. '_small.png'
 
   if not self.sheets then
     self.sheets = love.graphics.newImage(path)
@@ -76,7 +76,7 @@ function module.current()
     return _loaded_character
   end
 
-  local basePath = 'images/characters/' .. _character .. '.png'
+  local basePath = 'images/characters/' .. _character .. '_small.png'
   local characterPath = "characters/" .. _character .. ".json"
 
   if not love.filesystem.exists(characterPath) then
@@ -110,7 +110,7 @@ function module.current()
   character.sheets:setFilter('nearest', 'nearest')
 
 	character.positions = utils.require('positions/default')
-  character._grid = anim8.newGrid(96, 96, 
+  character._grid = anim8.newGrid(36, 36, 
                                   character.sheets:getWidth(),
                                   character.sheets:getHeight())
 

@@ -55,23 +55,23 @@ function Player.new(collider)
     }})
     plyr.controls = InputController.get()
 
-    plyr.width = 96
-    plyr.height = 96
-    plyr.bbox_width = 36
-    plyr.bbox_height = 88
+    plyr.width = 36
+    plyr.height = 36
+    plyr.bbox_width = 16 --TO DO: check bbox positioned correctly
+    plyr.bbox_height = 30
     plyr.character = character.current()
 
     plyr.max_health = 10
     plyr.health = plyr.max_health
     
-    plyr.jumpDamage = 3
-    plyr.punchDamage = 1
+    plyr.jumpDamage = 3 --TODO: remove this - all jumps kill except for bosses
+    plyr.punchDamage = 1 -- TODO: remove attack without a weapon? Possibly? Don't have sprites anyway
 
     plyr.inventory = Inventory.new( plyr )
     
     plyr.money = plyr.startingMoney   
     
-    plyr.on_ice = false
+    plyr.on_ice = false -- TODO: Add levels with ice or remove ice blocks?
 
     plyr.visitedLevels = {}
 
