@@ -38,23 +38,22 @@ menu:onSelect(function()
 
 function state:init()
 
-  self.arrow = love.graphics.newImage("images/menu/arrow.png")
-  self.background = love.graphics.newImage("images/menu/pause.png")
+  self.arrow = love.graphics.newImage("images/menu/small_arrow.png")
+  self.background = love.graphics.newImage("images/menu/home_background.png")
   self.instructions = {}
 
   -- The X coordinates of the columns
-  self.left_column = 320
-  self.right_column = 600
+  self.left_column = 40
+  self.right_column = 200
   -- The Y coordinate of the top key
-  self.top = 190
+  self.top = 70
   -- Vertical spacing between keys
-  self.spacing = 34
+  self.spacing = 15
 
 end
 
 function state:enter(previous)
-  love.graphics.setBackgroundColor(30, 30, 30)
-  fonts.set( 'big' )
+  love.graphics.setBackgroundColor(240, 240, 240, 255)
   sound.playMusic( "theme" )
 
   camera:setPosition(0, 0)
@@ -79,31 +78,31 @@ end
 function state:draw()
 
   love.graphics.setColor( 255, 255, 255, 255 )
+  love.graphics.draw(self.background, 0, 0)
+  love.graphics.draw(self.arrow, 270, 174 + self.spacing * menu:selected())
 
-  love.graphics.draw(self.background, 
-  camera:getWidth() / 2 - self.background:getWidth() / 2,
-  camera:getHeight()  / 2 - self.background:getHeight() / 2)
-
+  love.graphics.setColor( 30, 30, 30, 255 )
   local n = 1
-
-  love.graphics.setColor(255, 255, 255)
   local back = controls:getKey("START") .. ": BACK TO MENU"
   local howto = controls:getKey("ATTACK") .. " OR " .. controls:getKey("JUMP") .. ": REASSIGN CONTROL"
 
-  love.graphics.print(back, 50, 50)
-  love.graphics.print(howto, 50, 110)
+  fonts.set( 'big' )
+  love.graphics.printf("CONTROLS", 0, 40, window.width, 'center')
+  fonts.set( 'small' )
+  love.graphics.print(back, 50, 200)
+  love.graphics.print(howto, 50, 215)
   love.graphics.print(self.statusText, self.left_column, 560)
-  love.graphics.setColor( 30, 30, 30, 255 )
+
 
   for i, button in ipairs(menu.options) do
     local y = self.top + self.spacing * (i - 1)
     local key = controls:getKey(button)
-    love.graphics.print(descriptions[button], self.left_column, y, 0, 0.5)
-    love.graphics.print(key, self.right_column, y, 0, 0.5)
+    love.graphics.print(descriptions[button], self.left_column, y)
+    love.graphics.print(key, self.right_column, y)
   end
   
   love.graphics.setColor( 255, 255, 255, 255 )
-  love.graphics.draw(self.arrow, 270, 174 + self.spacing * menu:selected())
+
 end
 
 function state:remapKey(key)
