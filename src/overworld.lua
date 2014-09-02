@@ -82,22 +82,17 @@ function state:enter(previous)
 
   self.previous = previous
 
-  local charactersprites = love.graphics.newImage('images/characters/' .. current.name .. '_small.png')
-
-  g = anim8.newGrid(36, 36, self.charactersprites:getWidth(), self.charactersprites:getHeight())
-
   camera:scale(scale, scale)
   camera.max.x = map.width * map.tileWidth - (window.width * 2)
 
   fonts.set('big')
 
   self.stand = anim8.newAnimation('once', g(1, 1), 1)
-  self.walk = anim8.newAnimation('loop', g(2, 1, 3, 1), 0.2) --TODO: This looks ugly
+  self.walk = anim8.newAnimation('loop', g(2,1,3,1), 0.2)
   self.facing = 1
 
   local player = Player.factory()
 
-  
   self:reset(player.currentLevel.overworldName)
 end
 
@@ -114,10 +109,10 @@ function state:leave()
 end
 
 function state:reset(level)
-    if not self.zones[level] then level = 'greendale' end
+    if not self.zones[level] then level = 'station' end
     self.zone = self.zones[level]
-    self.tx = self.zone.x * map.tileWidth --self.zone.x * map.tileWidth
-    self.ty = self.zone.y * map.tileHeight --self.zone.y * map.tileWidth
+    self.tx = self.zone.x * map.tileWidth
+    self.ty = self.zone.y * map.tileHeight
     self.vx = 0
     self.vy = 0
     self.moving = false
