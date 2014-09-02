@@ -1,4 +1,5 @@
 local camera = require 'camera'
+local controls  = require('inputcontroller').get()
 local fonts = require 'fonts'
 local Gamestate = require 'vendor/gamestate'
 local Player = require 'player'
@@ -22,7 +23,8 @@ function state:enter(previous, player)
   
   --TODO: Add options back in
   --TODO: Make this page look pretty - possibly add DNA or a picture?
-  if previous ~= Gamestate.get('options') and previous ~= Gamestate.get('controls') then
+  if previous ~= Gamestate.get('options') and previous ~= Gamestate.get('controls')
+    and previous ~= Gamestate.get('overworld') then
     self.previous = previous
     self.player = player
   end
@@ -37,10 +39,10 @@ end
 
 function state:keypressed( button )
   if button == "UP" then
-    self.option = (self.option - 1) % 4
+    self.option = (self.option - 1) % 5
     sound.playSfx( 'click' )
   elseif button == "DOWN" then
-    self.option = (self.option + 1) % 4
+    self.option = (self.option + 1) % 5
     sound.playSfx( 'click' )
   end
   
@@ -66,12 +68,14 @@ function state:keypressed( button )
       Gamestate.switch(self.previous)
       return
     elseif self.option == 1 then
-      Gamestate.switch('controls')
+      Gamestate.switch('overworld')
     elseif self.option == 2 then
+      Gamestate.switch('controls')
+    elseif self.option == 3 then
       Player.kill()
       self.previous:quit()
       Gamestate.switch('home')
-    elseif self.option == 3 then
+    elseif self.option == 4 then
       love.event.push("quit")
     end
   end
@@ -82,8 +86,6 @@ function state:draw()
   love.graphics.setColor( 255, 255, 255, 255 )
   love.graphics.draw(self.background, 0, 0)
 
-  local controls = self.player.controls
-
   love.graphics.setColor( 0, 0, 0, 255 )
   fonts.set( 'big' )
   love.graphics.printf('Game Paused', 0, 40, window.width, 'center')
@@ -91,9 +93,10 @@ function state:draw()
   fonts.set('small')
   
   love.graphics.print('Return to Game', 50, 100)
-  love.graphics.print('Controls', 50, 115)
-  love.graphics.print('Quit to Menu', 50, 130)
-  love.graphics.print('Quit to Desktop', 50, 145)
+  love.graphics.print('Map', 50, 115)
+  love.graphics.print('Controls', 50, 130)
+  love.graphics.print('Quit to Menu', 50, 145)
+  love.graphics.print('Quit to Desktop', 50, 160)
 
   love.graphics.draw(self.arrow, 35, 100 + 15 * self.option)
 
