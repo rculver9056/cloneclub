@@ -21,8 +21,8 @@ local scale = 2
 -- FIXME: Put in a JSON file
 -- overworld state machine
 state.zones = {
-    greendale= { x=66,  y=100, UP=nil,        DOWN=nil,        RIGHT='forest_2', LEFT=nil,        visited = true,  name='Greendale',           level='studyroom'                                          },
-    forest_2 = { x=91,  y=100, UP='forest_3', DOWN=nil,        RIGHT=nil,        LEFT='greendale',visited = false,  name='Forest',             level='forest'                                             },
+    station= { x=66,  y=100, UP=nil,        DOWN=nil,        RIGHT='forest_2', LEFT=nil,        visited = true,  name='station',           level='studyroom'                                          },
+    forest_2 = { x=91,  y=100, UP='forest_3', DOWN=nil,        RIGHT=nil,        LEFT='station',visited = false,  name='Forest',             level='forest'                                             },
     forest_3 = { x=91,  y=89,  UP='town_1',   DOWN='forest_2', RIGHT=nil,        LEFT=nil,        visited = false,  name='Forest',             level='forest-2'                                           },
     town_1   = { x=91,  y=76,  UP=nil,        DOWN='forest_3', RIGHT=nil,        LEFT='town_2',   visited = false,  name='Town',               level='town'                                               },
     town_2   = { x=71,  y=76,  UP=nil,        DOWN=nil,        RIGHT='town_1',   LEFT='vforest_1',visited = true,  name='New Abedtown',        level='new-abedtown'                                       },
@@ -56,17 +56,14 @@ function state:enter(previous)
     love.graphics.newImage('images/overworld/world_04.png'),
     love.graphics.newImage('images/overworld/world_05.png'),
     love.graphics.newImage('images/overworld/world_06.png'),
-    love.graphics.newImage('images/overworld/world_07.png'),
-    love.graphics.newImage('images/overworld/world_08.png'),
+
   }
   
   self.overlay = {
-    love.graphics.newImage('images/overworld/world_overlay_01.png'),
-    love.graphics.newImage('images/overworld/world_overlay_02.png'),
     false,
     false,
-    love.graphics.newImage('images/overworld/world_overlay_05.png'),
-    love.graphics.newImage('images/overworld/world_overlay_06.png'),
+    false,
+    false,
     false,
     false,
   }
@@ -235,8 +232,8 @@ function state:draw()
 
 
     for i, image in ipairs(self.overworld) do
-        local x = (i - 1) % 4
-        local y = i > 4 and 1 or 0
+        local x = (i - 1) % 3
+        local y = i > 3 and 1 or 0
         love.graphics.draw(image, x * image:getWidth(), y * image:getHeight())
     end
 
