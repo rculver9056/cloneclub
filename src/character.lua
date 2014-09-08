@@ -116,15 +116,8 @@ function module.current()
 
   for state, _ in pairs(character.animations) do
     local data = character.animations[state]
-    if type( data[1] ) == 'string' then
-      -- positionless
-      character.animations[state] = anim8.newAnimation(data[1], character._grid(unpack(data[2])), data[3])
-    else
-      -- positioned
-      for i, _ in pairs( data ) do
-        character.animations[state][i] = anim8.newAnimation(data[i][1], character._grid(unpack(data[i][2])), data[i][3])
-      end
-    end
+      character.animations[state]['right'] = anim8.newAnimation(data[1], character._grid(unpack(data[2])), data[3])
+      character.animations[state]['left'] = anim8.newAnimation(data[1], character._grid(unpack(data[2])), data[3], nil, data[4])
   end
 
   _loaded_character = character
